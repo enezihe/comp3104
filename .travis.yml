@@ -3,11 +3,13 @@ node_js:
   - "stable"
 
 deploy:
-  provider: pages
-  strategy: git
-  cleanup: false
+  provider: pages:git 
+  edge: true    
   token: $github_token
+  repo: enezihe/comp3104
   local_dir: build
   target_branch: gh-pages
+  keep_history: true 
+  committer_from_gh: true
   on:
     branch: main
