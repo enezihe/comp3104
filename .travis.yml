@@ -6,7 +6,8 @@ deploy:
   provider: pages
   strategy: git
   cleanup: false
-  token: $github_token          
+  token: $github_token
   local_dir: build
-  target_branch: gh-pages      
+  target_branch: gh-pages
+  on:
     branch: main
