@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write   # gh-pages
+  contents: write
 
 jobs:
   deploy:
@@ -14,13 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node (LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: 'stable'
+          node-version: 'lts/*'
 
-      
-      - name: Create minimal build (lab için)
+      - name: Create minimal build
         run: |
           mkdir -p build
           [ -f build/index.html ] || echo "Hello from GitHub Actions" > build/index.html
@@ -31,4 +30,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./build
-
