@@ -13,3 +13,8 @@ deploy:
   committer_from_gh: true
   on:
     branch: main
+    
+before_deploy:
+  - git --version
+  - git config --list
+  - ls -la build
