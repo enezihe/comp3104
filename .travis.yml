@@ -1,7 +1,8 @@
 language: node_js
-node_js:
-  - "stable"
-
+node_js: [ "stable" ]
+before_script:
+  - mkdir -p build
+  - '[ -f build/index.html ] || echo "Hello from Travis" > build/index.html'
 deploy:
   provider: pages
   edge: true
