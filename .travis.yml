@@ -7,12 +7,12 @@ before_script:
 
 deploy:
   provider: pages
-  edge: true
+  edge: true              # dpl v2
   token: $github_token
   repo: enezihe/comp3104
   local_dir: build
   target_branch: gh-pages
-  keep_history: true
   committer_from_gh: true
+  verbose: true
   on:
     branch: main
