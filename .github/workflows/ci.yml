@@ -1,10 +1,55 @@
-name: CI
-on: [push]
+
+name: CI (lab04-only)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  Explore-GitHub-Actions:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "The branch is ${{ github.ref }} and repo is ${{ github.repository }}."
-      - run: ls ${{ github.workspace }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "stable"
+
+      - name: Install deps (lab04)
+        run: npm ci || npm i
+        working-directory: lab04
+
+      - name: Run tests (lab04)
+        run: npm test
+        working-directory: lab04
+
+      - name: Upload Pages artifact (publish lab04/)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./lab04
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
