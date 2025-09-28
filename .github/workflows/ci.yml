@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node (LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"     # İSTERSEN: "20"
+          node-version: "lts/*"     # istersen "20"
 
       - name: Install deps (lab04)
         run: npm ci || npm i
@@ -34,6 +34,12 @@ jobs:
       - name: Run tests (lab04)
         run: npm test
         working-directory: lab04
+
+      - name: Inject build timestamp into index.html
+        run: |
+          ts="$(date +"%Y-%m-%d %H:%M:%S")"
+          perl -0777 -pe "s#</body>#<p style='font-family: system-ui; padding:0 40px;'>Build time (runner): <strong>${ts}</strong></p></body>#s" \
+            lab04/index.html > /tmp/index.html && mv /tmp/index.html lab04/index.html
 
       - name: Upload Pages artifact (publish lab04/)
         uses: actions/upload-pages-artifact@v3
