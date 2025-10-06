@@ -1,0 +1,85 @@
+.page {
+  max-width: 720px;
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #111;
+}
+
+.title {
+  text-align: center;
+  font-size: 56px;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #5b2a86; /* mor ton */
+  font-weight: 700;
+  margin: 0 0 28px;
+}
+
+.form {
+  margin: 0 auto 28px;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.field label {
+  width: 120px;
+  font-size: 20px;
+}
+
+.field input {
+  flex: 1;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.btn {
+  align-self: center;
+  margin-top: 6px;
+  padding: 10px 22px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  background: #62a360; /* yeşil */
+  color: #fff;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(0.97); }
+
+.listTitle {
+  text-align: center;
+  font-size: 34px;
+  margin-top: 22px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.empty {
+  text-align: center;
+  color: #333;
+  font-size: 20px;
+}
+
+.list {
+  list-style: none;
+  padding: 0 12px;
+}
+
+.itemName {
+  font-weight: 700;
+}
