@@ -22,10 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node (LTS)
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"   # sabit
+          node-version: "20"
           cache: "npm"
 
       - name: Show tool versions
@@ -34,7 +34,7 @@ jobs:
           npm -v
 
       - name: Install deps (root)
-        run: npm install
+        run: npm ci
 
       - name: Build (root)
         run: npm run build
