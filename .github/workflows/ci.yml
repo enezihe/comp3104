@@ -25,11 +25,16 @@ jobs:
       - name: Setup Node (LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: "20"   # sabit
           cache: "npm"
 
+      - name: Show tool versions
+        run: |
+          node -v
+          npm -v
+
       - name: Install deps (root)
-        run: npm ci
+        run: npm install
 
       - name: Build (root)
         run: npm run build
