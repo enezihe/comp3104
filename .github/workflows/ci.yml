@@ -1,4 +1,4 @@
-name: CI (lab04-only)
+name: Build & Deploy SPA
 
 on:
   push:
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,34 +25,31 @@ jobs:
       - name: Setup Node (LTS)
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"     # istersen "20"
+          node-version: "20"   # sabit
+          cache: "npm"
 
-      - name: Install deps (lab04)
-        run: npm ci || npm i
-        working-directory: lab04
-
-      - name: Run tests (lab04)
-        run: npm test
-        working-directory: lab04
-
-      - name: Inject build timestamp into index.html
+      - name: Show tool versions
         run: |
-          ts="$(date +"%Y-%m-%d %H:%M:%S")"
-          perl -0777 -pe "s#</body>#<p style='font-family: system-ui; padding:0 40px;'>Build time (runner): <strong>${ts}</strong></p></body>#s" \
-            lab04/index.html > /tmp/index.html && mv /tmp/index.html lab04/index.html
+          node -v
+          npm -v
 
-      - name: Upload Pages artifact (publish lab04/)
+      - name: Install deps (root)
+        run: npm install
+
+      - name: Build (root)
+        run: npm run build
+
+      - name: Upload Pages artifact (build/)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./lab04
+          path: ./build
 
   deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
