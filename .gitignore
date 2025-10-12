@@ -13,5 +13,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Project-specific
 week05-react-app/
 lab04/
